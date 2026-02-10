@@ -4,3 +4,4 @@ scikit-learn
 wikipedia
 numpy
 pandas
+gunicorn

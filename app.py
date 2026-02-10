@@ -134,3 +134,6 @@ if st.button("Analyze"):
         for e, exists, sim in wiki_flags:
             status = "VERIFIED ✅" if exists else "NOT VERIFIED ⚠️"
             st.write(f"- {e}: {status} (Similarity={sim:.2f})")
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
