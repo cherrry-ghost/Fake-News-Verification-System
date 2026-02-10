@@ -5,5 +5,4 @@ pandas
 numpy
 requests
 wikipedia
-spacy
-en-core-web-sm
+spacy>=3.7,<3.9
