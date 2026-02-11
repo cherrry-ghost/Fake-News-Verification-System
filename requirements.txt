@@ -5,4 +5,4 @@ pandas
 numpy
 requests
 wikipedia
-spacy>=3.7,<3.9
+spacy==3.7.2

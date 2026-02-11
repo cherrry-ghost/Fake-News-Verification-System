@@ -1,11 +1,14 @@
 import spacy
 from spacy.cli import download
 # Load spaCy English model
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    download("en_core_web_sm")
-    nlp = spacy.load("en_core_web_sm")
+def load_model():
+    try:
+        return spacy.load("en_core_web_sm")
+    except OSError:
+        download("en_core_web_sm")
+        return spacy.load("en_core_web_sm")
+
+nlp = load_model()
 # ---------------------------
 # Entity Extraction Function
 # ---------------------------
