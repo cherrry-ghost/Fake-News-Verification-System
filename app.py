@@ -58,7 +58,14 @@ def rule_based_check(text):
 def ml_prediction(text):
     cleaned = clean_text(text)
     vectorized = vectorizer.transform([cleaned])
-    prob_fake, prob_real = model.predict_proba(vectorized)[0]
+
+    probs = model.predict_proba(vectorized)[0]
+    classes = model.classes_
+
+    prob_dict = dict(zip(classes, probs))
+
+    prob_fake = prob_dict.get("FAKE", 0)
+    prob_real = prob_dict.get("REAL", 0)
 
     if prob_real >= 0.65:
         label = "LIKELY REAL"
