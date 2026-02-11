@@ -1,11 +1,10 @@
 import spacy
-import subprocess
-import sys
+from spacy.cli import download
 # Load spaCy English model
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    download("en_core_web_sm")
     nlp = spacy.load("en_core_web_sm")
 # ---------------------------
 # Entity Extraction Function
