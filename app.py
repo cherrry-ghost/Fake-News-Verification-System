@@ -59,21 +59,29 @@ def ml_prediction(text):
     cleaned = clean_text(text)
     vectorized = vectorizer.transform([cleaned])
 
+    # Get probabilities
     probs = model.predict_proba(vectorized)[0]
     classes = model.classes_
 
+    # Map probabilities safely by class label
     prob_dict = dict(zip(classes, probs))
 
-    prob_fake = prob_dict.get("FAKE", 0)
-    prob_real = prob_dict.get("REAL", 0)
-    
-if abs(prob_real - prob_fake) < 0.10:
-    label = "UNCERTAIN"
-elif prob_real > prob_fake:
-    label = "LIKELY REAL"
-else:
-    label = "LIKELY FAKE"
-return label, float(prob_fake), float(prob_real)
+    # Adjust depending on how you trained:
+    # If your training used 0 = FAKE and 1 = REAL
+    prob_fake = prob_dict.get(0, 0)
+    prob_real = prob_dict.get(1, 0)
+
+    # --- Decision Logic ---
+    confidence_gap = abs(prob_real - prob_fake)
+
+    if confidence_gap < 0.10:
+        label = "UNCERTAIN"
+    elif prob_real > prob_fake:
+        label = "LIKELY REAL"
+    else:
+        label = "LIKELY FAKE"
+
+    return label, float(prob_fake), float(prob_real)
 
 # ---------------------------
 # Final decision
