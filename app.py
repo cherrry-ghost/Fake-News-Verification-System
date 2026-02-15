@@ -73,8 +73,7 @@ elif prob_real > prob_fake:
     label = "LIKELY REAL"
 else:
     label = "LIKELY FAKE"
-
-    return label, float(prob_fake), float(prob_real)
+return label, float(prob_fake), float(prob_real)
 
 # ---------------------------
 # Final decision
