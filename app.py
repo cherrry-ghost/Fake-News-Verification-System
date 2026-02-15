@@ -66,13 +66,13 @@ def ml_prediction(text):
 
     prob_fake = prob_dict.get("FAKE", 0)
     prob_real = prob_dict.get("REAL", 0)
-
-    if prob_real >= 0.65:
-        label = "LIKELY REAL"
-    elif prob_fake >= 0.65:
-        label = "LIKELY FAKE"
-    else:
-        label = "UNCERTAIN"
+    
+if abs(prob_real - prob_fake) < 0.10:
+    label = "UNCERTAIN"
+elif prob_real > prob_fake:
+    label = "LIKELY REAL"
+else:
+    label = "LIKELY FAKE"
 
     return label, float(prob_fake), float(prob_real)
 
